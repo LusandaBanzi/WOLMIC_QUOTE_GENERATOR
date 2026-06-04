@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Of Life Ministries International Church</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Georgia, serif;
+}
+
+body{
+    background:#000;
+    overflow-x:hidden;
+    color:white;
+}
+
+.hero{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    position:relative;
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.65)),
+    url("WhatsApp Image 2026-06-04 at 15.28.57.jpeg");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:radial-gradient(circle, rgba(255,215,0,.25), transparent 70%);
+    animation:pulse 4s infinite;
+}
+
+@keyframes pulse{
+    0%{opacity:.4;}
+    50%{opacity:1;}
+    100%{opacity:.4;}
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    max-width:1100px;
+}
+
+#welcomeText{
+    font-size:4rem;
+    font-weight:bold;
+    text-transform:uppercase;
+    text-shadow:0 0 20px gold;
+    min-height:180px;
+}
+
+.wordButton{
+    margin:20px 0;
+    padding:15px 40px;
+    font-size:18px;
+    font-weight:bold;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    background:linear-gradient(45deg,#FFD700,#ffae00);
+    color:black;
+    transition:.4s;
+}
+
+.wordButton:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px gold;
+}
+
+#slogan{
+    margin-top:20px;
+    font-size:1.6rem;
+    color:#FFD700;
+}
+
+#message{
+    margin-top:25px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(10px);
+    padding:25px;
+    border-radius:20px;
+    font-size:1.15rem;
+    line-height:1.8;
+}
+
+.randomMessage{
+    margin-top:20px;
+    font-size:1.2rem;
+    min-height:60px;
+    color:#fff;
+    font-style:italic;
+}
+
+.cross{
+    position:absolute;
+    right:8%;
+    top:10%;
+    font-size:120px;
+    color:rgba(255,215,0,.4);
+    animation:float 4s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-20px);}
+    100%{transform:translateY(0);}
+}
+
+footer{
+    background:#111;
+    padding:20px;
+    text-align:center;
+    border-top:2px solid gold;
+}
+
+#clock{
+    font-size:1.2rem;
+    color:gold;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+audio{
+    display:none;
+}
+
+@media(max-width:768px){
+
+    #welcomeText{
+        font-size:2rem;
+        min-height:120px;
+    }
+
+    .cross{
+        font-size:70px;
+    }
+
+    #message{
+        font-size:1rem;
+    }
+
+    #slogan{
+        font-size:1.2rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="1.mp3" autoplay loop></audio>
+
+<section class="hero">
+
+<div class="cross">✝</div>
+
+<div class="container">
+
+<h1 id="welcomeText"></h1>
+
+<!-- ONE BUTTON APPEARS RIGHT AFTER WELCOME TEXT -->
+<button class="wordButton" onclick="generateContent()">
+📖 Generate Today's Verse & Encouragement
+</button>
+
+<div id="slogan"></div>
+
+<div id="message"></div>
+
+<div id="randomMessage" class="randomMessage"></div>
+
+</div>
+
+</section>
+
+<footer>
+<h3>Word Of Life Ministries International Church</h3>
+<div id="clock"></div>
+</footer>
+
+<script>
+
+// ======================================
+// WELCOME TYPEWRITER
+// ======================================
+
+const welcomeMessage =
+"WOLMIC MOTIVATIONAL'QUOTES";
+
+let i = 0;
+
+function typeWriter(){
+    if(i < welcomeMessage.length){
+        document.getElementById("welcomeText").innerHTML += welcomeMessage.charAt(i);
+        i++;
+        setTimeout(typeWriter,70);
+    }
+}
+
+typeWriter();
+
+// ======================================
+// SCRIPTURES
+// ======================================
+
+const scriptures = [
+{
+slogan:"TO FIND THE LOST AND TO KEEP THE FOUND",
+verse:"Luke 19:10 - For the Son of Man came to seek and save the lost."
+},
+{
+slogan:"WITH GOD ALL THINGS ARE POSSIBLE",
+verse:"Matthew 19:26"
+},
+{
+slogan:"WALK BY FAITH AND NOT BY SIGHT",
+verse:"2 Corinthians 5:7"
+},
+{
+slogan:"JESUS CHRIST IS THE SAME FOREVER",
+verse:"Hebrews 13:8"
+},
+{
+slogan:"LET YOUR LIGHT SHINE",
+verse:"Matthew 5:16"
+},
+{
+slogan:"THE LORD IS MY SHEPHERD",
+verse:"Psalm 23:1"
+},
+{
+slogan:"BE STRONG AND COURAGEOUS",
+verse:"Joshua 1:9"
+},
+{
+slogan:"THE JOY OF THE LORD IS YOUR STRENGTH",
+verse:"Nehemiah 8:10"
+}
+];
+
+// ======================================
+// CHURCH MESSAGES
+// ======================================
+
+const congregantMessages = [
+"May God's presence fill your heart with peace, joy and hope today.",
+"May your worship experience bring healing and restoration.",
+"May the Lord strengthen your faith.",
+"May God's favour rest upon your family.",
+"Today is a new day filled with grace and mercy.",
+"May every prayer you lift return with blessings.",
+"Your breakthrough may be closer than you think",
+"God's timing is always perfect.",
+"Faith makes things possible, not easy.",
+"With God, every setback is a setup for a comeback.",
+"Pray, trust, and wait on the Lord."
+];
+
+// ======================================
+// MOTIVATIONAL QUOTES
+// ======================================
+
+const messages = [
+"Believe you can and you're halfway there.",
+"Dream it. Wish it. Do it.",
+"Success doesn't just find you. You have to go out and get it.",
+"Don't stop when you're tired. Stop when you're done.",
+"Every day is a fresh start.",
+"Happiness depends upon ourselves.",
+"Push yourself because no one else is going to do it for you.",
+"Keep moving forward.",
+"I can and I will."
+];
+
+// ======================================
+// ONE BUTTON GENERATOR
+// ======================================
+
+function generateContent(){
+
+const scripture =
+scriptures[Math.floor(Math.random()*scriptures.length)];
+
+const congregation =
+congregantMessages[Math.floor(Math.random()*congregantMessages.length)];
+
+const motivation =
+messages[Math.floor(Math.random()*messages.length)];
+
+document.getElementById("slogan").innerHTML =
+"📖 <b>" + scripture.slogan + "</b><br><br>" + scripture.verse;
+
+document.getElementById("message").innerHTML =
+congregation;
+
+document.getElementById("randomMessage").innerHTML =
+"✨ " + motivation;
+}
+
+// Display content automatically on page load
+generateContent();
+
+// ======================================
+// LIVE CLOCK
+// ======================================
+
+function updateClock(){
+
+const now = new Date();
+
+const date = now.toLocaleDateString('en-US',{
+weekday:'long',
+year:'numeric',
+month:'long',
+day:'numeric'
+});
+
+const time = now.toLocaleTimeString();
+
+document.getElementById("clock").innerHTML =
+"📅 " + date + "<br>⏰ " + time;
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+// ======================================
+// MUSIC PLAYER
+// ======================================
+
+const musicTracks = [
+"1.mp3",
+"2.mp3",
+"3.mp3",
+"4.mp3",
+"5.mp3"
+];
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+const bgMusic = document.getElementById("bg-music");
+
+const randomTrack =
+Math.floor(Math.random()*musicTracks.length);
+
+bgMusic.src = musicTracks[randomTrack];
+
+bgMusic.play().catch(()=>{
+console.log("Autoplay blocked by browser.");
+});
+
+});
+
+</script>
+
+</body>
+</html>
