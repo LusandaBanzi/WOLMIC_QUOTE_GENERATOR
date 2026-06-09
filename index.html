@@ -10,150 +10,127 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Georgia, serif;
+    font-family:'Segoe UI',sans-serif;
+}
+
+:root{
+    --gold:#ffd700;
+    --light-gold:#fff099;
+    --glass:rgba(255,255,255,0.1);
+    --border:rgba(255,255,255,0.2);
+    --text:#fff;
 }
 
 body{
-    background:#000;
-    overflow-x:hidden;
-    color:white;
-}
-
-.hero{
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
+    overflow:hidden;
     padding:20px;
-   
+    color:white;
+
     background:
-    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.65)),
-    url("WhatsApp Image 2026-06-04 at 15.28.57.jpeg");
-   
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),
+    url("logo1.png");
+
 }
 
-.hero::before{
-    content:"";
-    position:absolute;
+#particleCanvas{
+    position:fixed;
+    top:0;
+    left:0;
     width:100%;
     height:100%;
-    background:radial-gradient(circle, rgba(255,215,0,.25), transparent 70%);
-    animation:pulse 4s infinite;
-}
-
-@keyframes pulse{
-    0%{opacity:.4;}
-    50%{opacity:1;}
-    100%{opacity:.4;}
+    z-index:1;
 }
 
 .container{
     position:relative;
     z-index:2;
-    max-width:1100px;
+    width:100%;
+    max-width:850px;
 }
 
-#welcomeText{
-    font-size:4rem;
-    font-weight:bold;
+h1{
+    color:var(--gold);
+    margin-bottom:30px;
     text-transform:uppercase;
-    text-shadow:0 0 20px gold;
-    min-height:180px;
+    letter-spacing:2px;
+    font-size:2.4rem;
+    animation:pulseGlow 3s infinite alternate;
 }
 
-.wordButton{
-    margin:20px 0;
-    padding:15px 40px;
-    font-size:18px;
-    font-weight:bold;
-    border:none;
-    border-radius:50px;
-    cursor:pointer;
-    background:linear-gradient(45deg,#FFD700,#ffae00);
-    color:black;
-    transition:.4s;
+.quote-card{
+    background:var(--glass);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:40px;
+    min-height:260px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 8px 32px rgba(0,0,0,.3);
 }
 
-.wordButton:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 25px gold;
+.quote-text{
+    font-size:1.8rem;
+    line-height:1.5;
+    margin-bottom:20px;
+    transition:.5s;
 }
 
-#slogan{
-    margin-top:20px;
-    font-size:1.6rem;
-    color:#FFD700;
+.quote-author{
+    color:var(--light-gold);
+    font-size:1rem;
+    letter-spacing:1px;
+    transition:.5s;
 }
 
-#message{
+.fade-out{
+    opacity:0;
+    transform:translateY(-15px);
+}
+
+.progress-bar-container{
+    width:100%;
+    height:5px;
+    background:rgba(255,255,255,.15);
+    border-radius:10px;
+    overflow:hidden;
     margin-top:25px;
-    background:rgba(255,255,255,.12);
-    backdrop-filter:blur(10px);
-    padding:25px;
-    border-radius:20px;
-    font-size:1.15rem;
-    line-height:1.8;
 }
 
-.randomMessage{
-    margin-top:20px;
-    font-size:1.2rem;
-    min-height:60px;
-    color:#fff;
-    font-style:italic;
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:var(--gold);
+    box-shadow:0 0 10px var(--gold);
 }
 
-.cross{
-    position:absolute;
-    right:8%;
-    top:10%;
-    font-size:120px;
-    color:rgba(255,215,0,.4);
-    animation:float 4s infinite ease-in-out;
-}
-
-@keyframes float{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-20px);}
-    100%{transform:translateY(0);}
-}
-
-footer{
-    background:#111;
-    padding:20px;
-    text-align:center;
-    border-top:2px solid gold;
-}
-
-#clock{
-    font-size:1.2rem;
-    color:gold;
-    margin-top:10px;
-    font-weight:bold;
-}
-
-audio{
-    display:none;
+@keyframes pulseGlow{
+    from{
+        text-shadow:0 0 10px rgba(255,215,0,.4);
+    }
+    to{
+        text-shadow:0 0 30px rgba(255,215,0,.9);
+    }
 }
 
 @media(max-width:768px){
-
-    #welcomeText{
-        font-size:2rem;
-        min-height:120px;
+    h1{
+        font-size:1.5rem;
     }
 
-    .cross{
-        font-size:70px;
+    .quote-text{
+        font-size:1.3rem;
     }
 
-    #message{
-        font-size:1rem;
-    }
-
-    #slogan{
-        font-size:1.2rem;
+    .quote-card{
+        padding:25px;
     }
 }
 </style>
@@ -161,205 +138,139 @@ audio{
 
 <body>
 
-<audio id="1.mp3" autoplay loop></audio>
-
-<section class="hero">
-
-<div class="cross">✝</div>
+<canvas id="particleCanvas"></canvas>
 
 <div class="container">
+    <h1>Word Of Life Ministries International Church</h1>
 
-<h1 id="welcomeText"></h1>
+    <div class="quote-card">
+        <p class="quote-text" id="quote">Loading divine inspiration...</p>
+        <p class="quote-author" id="author"></p>
 
-<!-- ONE BUTTON APPEARS RIGHT AFTER WELCOME TEXT -->
-<button class="wordButton" onclick="generateContent()">
-📖 Generate Today's Verse & Encouragement
-</button>
-
-<div id="slogan"></div>
-
-<div id="message"></div>
-
-<div id="randomMessage" class="randomMessage"></div>
-
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
 </div>
-
-</section>
-
-<footer>
-<h3>Word Of Life Ministries International Church</h3>
-<div id="clock"></div>
-</footer>
 
 <script>
 
-// ======================================
-// WELCOME TYPEWRITER
-// ======================================
-
-let i = 0;
-
-function typeWriter(){
-    if(i < welcomeMessage.length){
-        document.getElementById("welcomeText").innerHTML += welcomeMessage.charAt(i);
-        i++;
-        setTimeout(typeWriter,70);
-    }
-}
-
-typeWriter();
-
-// ======================================
-// SCRIPTURES
-// ======================================
-
-const scriptures = [
-{
-slogan:"TO FIND THE LOST AND TO KEEP THE FOUND",
-verse:"Luke 19:10 - For the Son of Man came to seek and save the lost."
-},
-{
-slogan:"WITH GOD ALL THINGS ARE POSSIBLE",
-verse:"Matthew 19:26"
-},
-{
-slogan:"WALK BY FAITH AND NOT BY SIGHT",
-verse:"2 Corinthians 5:7"
-},
-{
-slogan:"JESUS CHRIST IS THE SAME FOREVER",
-verse:"Hebrews 13:8"
-},
-{
-slogan:"LET YOUR LIGHT SHINE",
-verse:"Matthew 5:16"
-},
-{
-slogan:"THE LORD IS MY SHEPHERD",
-verse:"Psalm 23:1"
-},
-{
-slogan:"BE STRONG AND COURAGEOUS",
-verse:"Joshua 1:9"
-},
-{
-slogan:"THE JOY OF THE LORD IS YOUR STRENGTH",
-verse:"Nehemiah 8:10"
-}
+const quotes = [
+{ text:"Faith does not eliminate questions. Faith knows where to take them.", author:"Word of Life" },
+{ text:"God never takes away something from your life without replacing it with something better.", author:"Word of Life" },
+{ text:"Your potential is the sum of all the possibilities God has for your life.", author:"Word of Life" },
+{ text:"Faith is taking the first step even when you don't see the whole staircase.", author:"Martin Luther King Jr." },
+{ text:"God does not call the qualified, He qualifies the called.", author:"Word of Life" },
+{ text:"What you are is God's gift to you, what you become is your gift to God.", author:"Hans Urs von Balthasar" },
+{ text:"Starve your distractions, feed your focus, and trust God's timing.", author:"Word of Life" },
+{ text:"Anxiety happens when you think you have to figure out everything all at once. Trust God.", author:"Word of Life" },
+{ text:"God is not looking for extraordinary people, but for people who will love Him extraordinarily.", author:"Word of Life" },
+{ text:"Your break-down is just a setup for your great break-through.", author:"Word of Life" },
+{ text:"Faith is building an ark when there is no rain in sight.", author:"Word of Life" },
+{ text:"When you cannot find your footing, lean on the Rock that is higher than you.", author:"Word of Life" },
+{ text:"God’s grace is sufficient for you, and His strength is made perfect in weakness.", author:"2 Corinthians 12:9" },
+{ text:"Let your life reflect the faith you have in God.", author:"Word of Life" },
+{ text:"The cross shows us that God will go to any length to bring us back to Himself.", author:"Word of Life" },
+{ text:"Do not let your hearts be troubled. Trust in God.", author:"John 14:1" },
+{ text:"God will make a way where there seems to be no way.", author:"Word of Life" },
+{ text:"Keep your eyes on God. He is the author and perfecter of your faith.", author:"Word of Life" },
+{ text:"Every trial you face is an opportunity to see God’s power at work.", author:"Word of Life" },
+{ text:"You are fearfully and wonderfully made.", author:"Psalm 139:14" }
 ];
 
-// ======================================
-// CHURCH MESSAGES
-// ======================================
+const quoteText = document.getElementById("quote");
+const quoteAuthor = document.getElementById("author");
+const progressBar = document.getElementById("progressBar");
 
-const congregantMessages = [
-"May God's presence fill your heart with peace, joy and hope today.",
-"May your worship experience bring healing and restoration.",
-"May the Lord strengthen your faith.",
-"May God's favour rest upon your family.",
-"Today is a new day filled with grace and mercy.",
-"May every prayer you lift return with blessings.",
-"Your breakthrough may be closer than you think",
-"God's timing is always perfect.",
-"Faith makes things possible, not easy.",
-"With God, every setback is a setup for a comeback.",
-"Pray, trust, and wait on the Lord."
-];
+let currentQuote = 0;
+const displayDuration = 5000;
 
-// ======================================
-// MOTIVATIONAL QUOTES
-// ======================================
+function showQuote(){
 
-const messages = [
-"Believe you can and you're halfway there.",
-"Dream it. Wish it. Do it.",
-"Success doesn't just find you. You have to go out and get it.",
-"Don't stop when you're tired. Stop when you're done.",
-"Every day is a fresh start.",
-"Happiness depends upon ourselves.",
-"Push yourself because no one else is going to do it for you.",
-"Keep moving forward.",
-"I can and I will."
-];
+    quoteText.classList.add("fade-out");
+    quoteAuthor.classList.add("fade-out");
 
-// ======================================
-// ONE BUTTON GENERATOR
-// ======================================
+    setTimeout(() => {
 
-function generateContent(){
+        const q = quotes[currentQuote];
 
-const scripture =
-scriptures[Math.floor(Math.random()*scriptures.length)];
+        quoteText.textContent = `"${q.text}"`;
+        quoteAuthor.textContent = `— ${q.author}`;
 
-const congregation =
-congregantMessages[Math.floor(Math.random()*congregantMessages.length)];
+        quoteText.classList.remove("fade-out");
+        quoteAuthor.classList.remove("fade-out");
 
-const motivation =
-messages[Math.floor(Math.random()*messages.length)];
+        currentQuote++;
+        if(currentQuote >= quotes.length){
+            currentQuote = 0;
+        }
 
-document.getElementById("slogan").innerHTML =
-"📖 <b>" + scripture.slogan + "</b><br><br>" + scripture.verse;
+        startProgress();
 
-document.getElementById("message").innerHTML =
-congregation;
-
-document.getElementById("randomMessage").innerHTML =
-"✨ " + motivation;
+    },400);
 }
 
-// Display content automatically on page load
-generateContent();
+function startProgress(){
 
-// ======================================
-// LIVE CLOCK
-// ======================================
+    progressBar.style.transition = "none";
+    progressBar.style.width = "0%";
 
-function updateClock(){
-
-const now = new Date();
-
-const date = now.toLocaleDateString('en-US',{
-weekday:'long',
-year:'numeric',
-month:'long',
-day:'numeric'
-});
-
-const time = now.toLocaleTimeString();
-
-document.getElementById("clock").innerHTML =
-"📅 " + date + "<br>⏰ " + time;
+    setTimeout(() => {
+        progressBar.style.transition = `width ${displayDuration}ms linear`;
+        progressBar.style.width = "100%";
+    },50);
 }
 
-setInterval(updateClock,1000);
-updateClock();
+showQuote();
+setInterval(showQuote, displayDuration);
 
-// ======================================
-// MUSIC PLAYER
-// ======================================
+/* GOLD PARTICLES */
 
-const musicTracks = [
-"1.mp3",
-"2.mp3",
-"3.mp3",
-"4.mp3",
-"5.mp3"
-];
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
 
-window.addEventListener("DOMContentLoaded",()=>{
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
 
-const bgMusic = document.getElementById("bg-music");
+window.addEventListener("resize", resizeCanvas);
 
-const randomTrack =
-Math.floor(Math.random()*musicTracks.length);
+const particles = [];
 
-bgMusic.src = musicTracks[randomTrack];
+for(let i=0;i<120;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*3+1,
+        speed:Math.random()*1.5+0.5
+    });
+}
 
-bgMusic.play().catch(()=>{
-console.log("Autoplay blocked by browser.");
-});
+function animateParticles(){
 
-});
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,215,0,0.8)";
+        ctx.fill();
+
+        p.y -= p.speed;
+
+        if(p.y < 0){
+            p.y = canvas.height;
+            p.x = Math.random()*canvas.width;
+        }
+    });
+
+    requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
 
 </script>
 
