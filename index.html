@@ -1,3 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Of Life Ministries International Church</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
+body{
+height:100vh;
+overflow:hidden;
+background:url('logo1.png');
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+body::before{
+content:'';
+position:absolute;
+inset:0;
+background:
+linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.35)),
+radial-gradient(circle at top center, rgba(255,215,0,.35), transparent 45%);
+}
+
+.light-beam{
+position:absolute;
+top:-30%;
+width:250px;
+height:160%;
+background:linear-gradient(to bottom,rgba(255,215,0,.18),transparent);
+filter:blur(30px);
+transform:rotate(20deg);
+animation:sway 8s ease-in-out infinite;
+}
+
+.light2{left:60%;animation-delay:-4s;}
+.light1{left:15%;}
+
+@keyframes sway{
+50%{transform:rotate(-20deg) translateX(40px);}
+}
+
+.container{
+position:relative;
+z-index:2;
+width:min(1000px,95%);
+text-align:center;
+}
+
+.cross{
+font-size:70px;
+color:#ffd700;
+margin-bottom:15px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px gold;}
+to{text-shadow:0 0 40px gold,0 0 80px gold;}
+}
+
+.title{
+color:white;
+font-size:clamp(2.5rem,5vw,5rem);
+font-weight:900;
+}
+
+.subtitle{
+color:#ffd700;
+font-size:clamp(1.2rem,3vw,2rem);
+margin-bottom:30px;
+}
+
+.scripture-box{
+background:rgba(10,10,10,.55);
+border:2px solid rgba(255,215,0,.4);
+padding:45px;
+border-radius:0;
+clip-path:polygon(0 0,95% 0,100% 12%,100% 100%,5% 100%,0 88%);
+backdrop-filter:blur(8px);
+box-shadow:0 0 50px rgba(255,215,0,.2);
+}
+
+.verse{
+color:white;
+font-size:clamp(1.5rem,3vw,2.4rem);
+line-height:1.8;
+font-weight:700;
+}
+
+.reference{
+margin-top:20px;
+font-size:1.3rem;
+color:#ffd700;
+}
+
+.fade{
+animation:reveal 1s ease;
+}
+
+@keyframes reveal{
+0%{opacity:0;letter-spacing:15px;transform:translateY(50px);}
+100%{opacity:1;letter-spacing:0;transform:translateY(0);}
+}
+
+.clock-panel{
+position:fixed;
+top:20px;
+right:20px;
+padding:15px 25px;
+background:rgba(0,0,0,.55);
+border-left:4px solid gold;
+color:white;
+text-align:right;
+}
+
+#clock{font-size:1.2rem;font-weight:bold;}
+#date{font-size:.9rem;margin-top:5px;color:#ddd;}
+
+.spark{
+position:absolute;
+width:4px;
+height:4px;
+background:gold;
+border-radius:50%;
+animation:rise linear infinite;
+}
+
+@keyframes rise{
+from{transform:translateY(100vh) scale(0);opacity:0;}
+20%{opacity:1;}
+to{transform:translateY(-120vh) scale(2);opacity:0;}
+}
+
+.footer{
+margin-top:20px;
+color:white;
+font-size:1.3rem;
+letter-spacing:3px;
+}
+</style>
+</head>
+<body>
+
+<div class="light-beam light1"></div>
+<div class="light-beam light2"></div>
+
+<div class="container">
+<div class="cross">✝</div>
+<div class="title">Word Of Life Ministries</div>
+<div class="subtitle">International Church</div>
+
+<div class="scripture-box">
+<div id="verse" class="verse"></div>
+<div id="reference" class="reference"></div>
+</div>
+
+<div class="footer">TO FIND THE LOST AND KEEP THE FOUND</div>
+</div>
+
+<div class="clock-panel">
+<div id="clock"></div>
+<div id="date"></div>
+</div>
+
+<script>
+const verses=[
+{text:"Faith is the substance of things hoped for, the evidence of things not seen.",ref:"Hebrews 11:1"},
+{text:"I can do all things through Christ who strengthens me.",ref:"Philippians 4:13"},
+{text:"Trust in the Lord with all your heart.",ref:"Proverbs 3:5"},
+{text:"Be still and know that I am God.",ref:"Psalm 46:10"},
+{text:"For with God nothing shall be impossible.",ref:"Luke 1:37"},
+{
+text:"Faith is the substance of things hoped for, the evidence of things not seen.",
+ref:"Hebrews 11:1"
+},
+{
+text:"I can do all things through Christ who strengthens me.",
+ref:"Philippians 4:13"
+},
+{
+text:"The Lord is my shepherd; I shall not want.",
+ref:"Psalm 23:1"
+},
+{
+text:"Trust in the Lord with all your heart.",
+ref:"Proverbs 3:5"
+},
+{
+text:"Be still and know that I am God.",
+ref:"Psalm 46:10"
+},
+{
+text:"For with God nothing shall be impossible.",
+ref:"Luke 1:37"
+},
+{
+text:"The joy of the Lord is your strength.",
+ref:"Nehemiah 8:10"
+},
+{
+text:"God is our refuge and strength.",
+ref:"Psalm 46:1"
+},
+{
+text:"Let everything that has breath praise the Lord.",
+ref:"Psalm 150:6"
+},
+{
+text:"Cast all your anxiety on Him because He cares for you.",
+ref:"1 Peter 5:7"
+},
 { text:"Faith is the substance of things hoped for, the evidence of things not seen.", ref:"Hebrews 11:1" },
             { text:"I can do all things through Christ who strengthens me.", ref:"Philippians 4:13" },
             { text:"The Lord is my shepherd; I shall not want.", ref:"Psalm 23:1" },
@@ -45,3 +260,39 @@
 			{ text:"Above all, keep loving one another earnestly, since love covers a multitude of sins.", ref:"1 Peter 4:8" },
 			{ text:"But you, O Lord, are a shield for me, my glory and the One who lifts up my head.", ref:"Psalm 3:3" },
 			{ text:"Blessed are the pure in heart, for they shall see God.", ref:"Matthew 5:8" },{ text:"Blessed are the peacemakers, for they shall be called sons of God.", ref:"Matthew 5:9" },{ text:"You are the light of the world. A city that is set on a hill cannot be hidden.", ref:"Matthew 5:14" },{ text:"Let your light so shine before men, that they may see your good works and glorify your Father.", ref:"Matthew 5:16" }
+,
+// Continue until 100
+];
+
+function showVerse(){
+const v=verses[Math.floor(Math.random()*verses.length)];
+verse.classList.remove('fade');
+reference.classList.remove('fade');
+void verse.offsetWidth;
+verse.classList.add('fade');
+reference.classList.add('fade');
+verse.textContent='"'+v.text+'"';
+reference.textContent=v.ref;
+}
+showVerse();
+setInterval(showVerse,5000);
+
+function updateClock(){
+const now=new Date();
+clock.textContent=now.toLocaleTimeString();
+date.textContent=now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+setInterval(updateClock,1000);
+updateClock();
+
+for(let i=0;i<120;i++){
+const s=document.createElement('div');
+s.className='spark';
+s.style.left=Math.random()*100+'%';
+s.style.animationDuration=(8+Math.random()*12)+'s';
+s.style.animationDelay=Math.random()*10+'s';
+document.body.appendChild(s);
+}
+</script>
+</body>
+</html>
